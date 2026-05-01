@@ -1,6 +1,3 @@
-from ctypes import c_uint
-
-
 def add(mas, i, prompt_type): #Проверка вводимых значений с использование рекурсии
     if prompt_type == 0:
         prompt = f"Введите размер массива {i + 1} \n"
