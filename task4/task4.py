@@ -1,11 +1,23 @@
+import sys
 import math
+
+if len(sys.argv) != 2:
+    print("Для работы программы необходимо передать имя файла с массивом")
+    sys.exit()
 
 sum_num = 0
 steps = 0
 nums = []
-nums_path = ('Nums.txt')
 
-nums_file = open(nums_path, 'r')
+try:
+    nums_file = open(sys.argv[1], 'r')
+except FileNotFoundError:
+    print(f"Файл {sys.argv[1]} не найден")
+    sys.exit()
+except PermissionError:
+    print(f"Недостаточно прав для доступа к файлу {sys.argv[1]}")
+    sys.exit()
+
 for line in nums_file:
     nums.append(int(line))
 nums_file.close()

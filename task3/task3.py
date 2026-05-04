@@ -1,10 +1,18 @@
+import sys
 import re
 
-values_path = ('values.json')
-tests_path = ('tests.json')
-report_path = ('report.json')
+if len(sys.argv) != 4:
+    print("Программа должна содержать 3 аргумента\n1. Имя json файла с результатами теста\n2. Имя json файла со структурой тестов\n3. Имя json файла в который будет записан результат")
+    sys.exit()
 
-values_file = open(values_path, 'r') #Чтение файла с результатами и сохранение их в два массива с id и результатами
+try:
+    values_file = open(sys.argv[1], 'r') #Чтение файла с результатами и сохранение их в два массива с id и результатами
+except FileNotFoundError:
+    print(f"Файл {sys.argv[1]} не найден")
+    sys.exit()
+except PermissionError:
+    print(f"Недостаточно прав для доступа к файлу {sys.argv[1]}")
+    sys.exit()
 test_id = []
 test_values = []
 for line in values_file:
@@ -16,8 +24,21 @@ for line in values_file:
         test_values.append('"failed"')
 values_file.close()
 
-report_file = open(report_path, 'w') #Чтение файла и запись с добавлеными результатами
-test_file = open(tests_path, 'r')
+try:
+    report_file = open(sys.argv[3], 'w') #Запись с добавлеными результатами
+except:
+    print(f"Не удалось создать файл {sys.argv[3]}")
+    sys.exit()
+
+try:
+    test_file = open(sys.argv[2], 'r')
+except FileNotFoundError:
+    print(f"Файл {sys.argv[2]} не найден")
+    sys.exit()
+except PermissionError:
+    print(f"Недостаточно прав для доступа к файлу {sys.argv[2]}")
+    sys.exit()
+
 for line in test_file:
     if '"id"' in line:
         if re.findall(r'\d+', line) in test_id:
