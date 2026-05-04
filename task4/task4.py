@@ -29,7 +29,7 @@ sum_num = math.ceil(sum_num)
 
 for i in range(len(nums)):
     steps += abs(nums[i] - sum_num)
-if steps > 20:
-    print("20 ходов недостаточно для приведения всех элементов массива к одному числу")
-else:
+if steps < 20:
     print(steps)
+else:
+    print("20 ходов недостаточно для приведения всех элементов массива к одному числу")
