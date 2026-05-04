@@ -45,8 +45,12 @@ if x > 10**-38 and y > 10**-38 and x < 10**38 and y < 10**38:
         sys.exit()
     file_read.seek(0)
     for line in file_read:
-        pointx.append(float(re.findall(r'\d+', line)[0]))
-        pointy.append(float(re.findall(r'\d+', line)[1]))
+        if float(re.findall(r'\d+', line)[0]) > 10 ** -38 and float(re.findall(r'\d+', line)[1]) > 10 ** -38 and float(re.findall(r'\d+', line)[0]) < 10 ** 38 and float(re.findall(r'\d+', line)[1]) < 10 ** 38:
+            pointx.append(float(re.findall(r'\d+', line)[0]))
+            pointy.append(float(re.findall(r'\d+', line)[1]))
+        else:
+            print("Координаты точки должны находится в диапазоне от 10^-38 и 10^38")
+            sys.exit()
     file_read.close()
 
     for i in range(len(pointx)):
